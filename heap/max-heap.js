@@ -19,7 +19,34 @@ class MaxHeap {
     }
 
     getMax() {
+        if (this.heap.length === 0) {
+            return undefined;
+        }
+        if (this.heap.length === 1) {
+            return this.heap.pop();
+        }
+        const last = this.heap.pop();
+        const max = this.heap[0];
+        this.heap[0] = last;
 
+        let i = 0;
+        while (i <= this.heap.length - 1) {
+            let leftChildIndex = 2 * i + 1;
+            let rightChildIndex = 2 * i + 2;
+            if (this.heap[leftChildIndex] > this.heap[i]) {
+                this.swap(this.heap, leftChildIndex, i);
+                i = leftChildIndex;
+                continue;
+            }
+            if (this.heap[rightChildIndex] > this.heap[i]) {
+                this.swap(this.heap, rightChildIndex, i);
+                i = rightChildIndex;
+                continue;
+            }
+            break;
+        }
+
+        return max
     }
 
     balance(index) {
@@ -30,8 +57,7 @@ class MaxHeap {
         let parent = this.heap[parentIndex];
         let element = this.heap[index]
         while (element > parent && index > 0) {
-            this.heap[parentIndex] = element;
-            this.heap[index] = parent;
+            this.swap(this.heap, index, parentIndex)
             index = parentIndex;
             parentIndex = Math.floor((index - 1) / 2);
             element = this.heap[index]
@@ -39,6 +65,11 @@ class MaxHeap {
         }
     }
 
+    swap(array, i, j) {
+        const iElement = array[i];
+        array[i] = array[j];
+        array[j] = iElement;
+    }
 }
 
 const maxHeap = new MaxHeap();
@@ -46,4 +77,16 @@ maxHeap.add(10);    // [10]
 maxHeap.add(8);     // [10,8]
 maxHeap.add(7);     // [10,8,7]
 maxHeap.add(12);    // [10,8,7,12] -> [10,12,7,8] -> [12,10,7,8]
-console.log(maxHeap);
+console.log('maxHeap', maxHeap);
+
+let max = maxHeap.getMax();
+console.log('max', max);
+console.log('maxHeap', maxHeap);
+
+max = maxHeap.getMax();
+console.log('max', max);
+console.log('maxHeap', maxHeap);
+
+max = maxHeap.getMax();
+console.log('max', max);
+console.log('maxHeap', maxHeap);
