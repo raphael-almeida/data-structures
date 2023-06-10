@@ -1,3 +1,5 @@
+# Binary Heap
+
 A binary heap is a heap data structure that takes the form of a binary tree. Binary heaps are a common way of implementing priority queues. The binary heap was introduced by J. W. J. Williams in 1964, as a data structure for heapsort.
 
 A binary heap is defined as a binary tree with two additional constraints:
